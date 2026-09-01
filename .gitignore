@@ -1,0 +1,43 @@
+# Pastas temporárias e compilação do Quartus Prime
+db/
+incremental_db/
+simulation/
+output_files/
+hc_output/
+
+# Relatórios automáticos e arquivos de log do Quartus
+*.rpt
+*.summary
+*.smsg
+*.done
+*.pin
+*.jdi
+*.qws
+
+# Arquivos de programação física da placa (binários pesados)
+*.sof
+*.pof
+*.ttf
+*.rbf
+
+# Arquivos de compilação, logs e histórico do Questa / ModelSim
+work/
+transcript
+vsim.wlf
+*.mpf
+*.cr.mti
+
+# Evita subir arquivos de rascunho do próprio sistema ou editor
+.DS_Store
+*~
+
+# Gerados pelo Makefile de verificação (Icarus Verilog)
+parte_hardware/sim/*.vvp
+parte_hardware/imagens_teste/
+parte_hardware/sinais_teste/
+parte_hardware/weights/
+parte_hardware/filtragem_pt/
+resultados/
+/pesos_modelo.hex
+__pycache__/
+*.pyc
