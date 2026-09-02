@@ -1,17 +1,5 @@
 `timescale 1ns / 1ps
-//
-// Testbench de lote (batch) para o acelerador DIAAS.
-// Diferenças em relação a sim/tb_acelerador.sv (que continua intacto e é usado
-// na verificação interativa via Questa):
-//   - Não usa $stop (trava a execução em modo batch/headless); usa $finish.
-//   - Le o "vetor de imagem" (1024 palavras de 32 bits) de um arquivo .hex
-//     passado via +IMAGEM=... em vez de um valor fixo no código.
-//   - Ao final do processamento, grava o valor do acumulador (64 bits, com
-//     sinal) em decimal no arquivo indicado via +SAIDA=...
-//   - Roda com um TAXA_BAUD mais alto (parametro da instancia) apenas para
-//     acelerar a simulacao; o valor padrao (115200) usado na sintese/placa
-//     real nao e alterado, pois nao mexemos no default do modulo.
-//
+
 module tb_acelerador_batch();
 
     logic clk;
@@ -19,9 +7,7 @@ module tb_acelerador_batch();
     logic rx;
     logic tx;
 
-    // Baud "de simulacao": mais alto so para o testbench rodar rapido.
-    // CLOCKS_POR_BIT = 50_000_000/5_000_000 = 10 ciclos/bit.
-    localparam int TAXA_BAUD_SIM = 5_000_000;
+    localparam int TAXA_BAUD_SIM = 16_000_000;
     localparam int TEMPO_BIT     = (50_000_000 / TAXA_BAUD_SIM) * 20;
 
     localparam int N_PALAVRAS = 1024;
@@ -34,9 +20,6 @@ module tb_acelerador_batch();
     logic trace_ativo = 1'b0;
     logic trace_habilitado; // ligado via +TRACE (opcional, so para depuracao)
 
-    // Monitor continuo, alinhado a borda de clock, independente de qualquer
-    // calculo manual de "quantos ciclos se passaram" - evita erro de
-    // alinhamento entre esperas baseadas em tempo (#TEMPO_BIT) e bordas de clk.
     always @(posedge clk) begin
         if (trace_ativo) begin
             $display("[MON t=%0t] end_esc=%0d end_leit=%0d hab_esc=%b hab_mac=%b limpa=%b dado_saida=%h peso_saida=%h mult=%h acc=%h estado=%0d",
@@ -108,16 +91,6 @@ module tb_acelerador_batch();
             if (trace_habilitado && i == N_PALAVRAS - 2) trace_ativo = 1'b1; // liga o monitor um pouco antes do fim
         end
 
-        // Espera o acelerador terminar o calculo de verdade. O FSM leva
-        // ~1024 ciclos de clock so na fase CALCULA (um por par peso/dado),
-        // entao NAO da pra simplesmente esperar um numero fixo pequeno de
-        // ciclos apos o ultimo byte serial - isso lia o acumulador no meio
-        // do calculo (bug encontrado nesta sessao: a versao anterior deste
-        // testbench usava so 60 ciclos de folga, o que e insuficiente).
-        // Espera a borda de subida de fio_fim_calculo e da uma pequena folga
-        // extra (o pipeline do MAC tem 1 ciclo de atraso, entao o ultimo
-        // termo so e somado ao acumulador 1-2 ciclos depois do sinal subir).
-        // Um timeout de seguranca evita travar o Makefile se algo falhar.
         fork
             begin : espera_normal
                 @(posedge dut.fio_fim_calculo);
