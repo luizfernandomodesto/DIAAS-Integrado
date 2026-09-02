@@ -52,9 +52,6 @@ sinais: $(PESOS)
 	@echo ">> Gerando sinal de teste e janelas em $(SINAIS_DIR)/ ..."
 	@$(PYTHON) $(SCRIPTS_DIR)/gera_sinal_teste.py $(PESOS) $(SINAIS_DIR)
 
-# rtl/memoria_pesos.sv carrega os pesos com $readmemh("pesos_modelo.hex", ...)
-# - caminho relativo fixo no proprio codigo. O Makefile garante uma copia
-# local na raiz do repo (onde o vvp e chamado) antes de simular.
 PESOS_LOCAL = pesos_modelo.hex
 
 $(PESOS_LOCAL): $(PESOS)
