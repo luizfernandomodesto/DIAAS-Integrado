@@ -1,0 +1,5 @@
+predicao=controle
+prob_controle=0.501195
+prob_tea=0.498805
+rotulo_real=controle
+acertou=True

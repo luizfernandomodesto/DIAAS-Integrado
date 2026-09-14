@@ -1,0 +1,8 @@
+rotulo_real=TEA
+predicao_sem_filtro=controle
+prob_tea_sem_filtro=0.465270
+acertou_sem_filtro=False
+predicao_com_filtro=controle
+prob_tea_com_filtro=0.483297
+acertou_com_filtro=False
+predicao_mudou=False
