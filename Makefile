@@ -12,7 +12,7 @@ RESULT_DIR     = resultados
 PESOS         = parte_hardware/weights/pesos_modelo.hex
 STREAMING_DIR = parte_hardware/streaming_pt
 SIM_BIN       = $(SIM_DIR)/streaming.vvp
-SUJEITO_PT   ?= $(firstword $(wildcard $(IMAGENS)/*.pt))
+SUJEITO_PT   ?=
 
 STREAMING_SRCS = $(RTL_DIR)/receptor_uart.sv $(RTL_DIR)/empacotador_bytes.sv \
                  $(RTL_DIR)/memoria_circular.sv $(RTL_DIR)/memoria_pesos.sv \
