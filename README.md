@@ -1,4 +1,4 @@
-# DIAAS-Hardware
+# DIAAS-Integrado
 
 Este repositório é o projeto integrado (hardware + software) do DIAAS. O
 objetivo principal é rodar `make all` e olhar as pastas de resultado pra
