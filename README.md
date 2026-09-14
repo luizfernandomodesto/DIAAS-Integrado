@@ -5,6 +5,15 @@ objetivo principal é rodar `make all` e olhar as pastas de resultado pra
 verificar se o filtro no hardware melhora a detecção do classificador,
 comparando a predição com e sem o filtro.
 
+## Imagens
+
+A pasta `imagens/` já vem com 30 sujeitos reais do ABIDE, retirados
+aleatoriamente do banco de dados completo — para ser possível testar o programa utilizando
+`make all` direto, sem precisar baixar.
+
+O banco de dados completo (todos os sujeitos processados) está disponível
+aqui: https://drive.google.com/drive/folders/1fL3aENIbXSorvtPJF3YRZlWHNoguGWdL?usp=sharing
+
 ## Como rodar
 
 ```bash
@@ -18,7 +27,7 @@ make software     # só o classificador, sem hardware
 | Alvo | O que faz |
 |---|---|
 | `all` | **O teste principal.** Filtra um sujeito real no hardware, classifica com e sem o filtro, e grava os dois resultados lado a lado |
-| `software` | Roda o classificador real (Thiago) sobre cada sujeito em `imagens/` |
+| `software` | Roda o classificador real (feito pelo Thiago) sobre cada sujeito em `imagens/` |
 | `clean` | Remove os arquivos gerados (binário compilado, resultados) |
 
 ## Onde ver os resultados
