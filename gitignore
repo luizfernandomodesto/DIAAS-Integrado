@@ -1,0 +1,10 @@
+.DS_Store
+*~
+
+parte_hardware/sim/*.vvp
+parte_hardware/weights/
+parte_hardware/streaming_pt/
+resultados/
+/pesos_modelo.hex
+__pycache__/
+*.pyc
